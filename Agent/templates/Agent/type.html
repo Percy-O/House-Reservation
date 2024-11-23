@@ -1,0 +1,67 @@
+{% extends 'Dashboard/base.html' %}
+
+
+{% load crispy_forms_tags %}
+{% block content %}
+
+
+<nav aria-label="Page breadcrumb">
+    <ol class="breadcrumb" style="background-color: #f1f1f1;">
+        <li class="breadcrumb-item"><a href="{% url 'Agent:dashboard' %}">Dashboard</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Add House Type</li>
+    </ol>
+</nav>
+<hr>
+
+
+<div class="row">
+
+	<div class="col-md-4">
+
+		<div class="row">
+			<!-- <h4 class="py-3 text-white mr-auto ml-auto">Type of House</h4> -->
+			<div class="col-md-12 ">
+			<form action="" method="POST" class="py-3">
+				{% csrf_token %}
+
+				<div class="form-group">
+					{{form.name|as_crispy_field}}
+					<small > What Type Of House (Duplex,bungalow,flat)</small>
+				</div>	
+				{% if verify == 'update' %}
+					<button class="btn btn-primary">Update House Type</button>	
+				{% else %}
+					<button class="btn btn-primary">Save House Type</button>	
+				{% endif %}					
+			</form>
+			</div>
+		</div>
+
+		
+	</div>
+	<div class="col-md-8 bg-white rounded p-3 ">
+			<table class="table table-hover">
+        <thead class="thead bg-dark text-white">
+            <th>Id</th>
+            <th>Name</th>
+			<th> Action </th>
+        </thead>
+		{% for type in types %}
+		<tbody>
+			<tr>
+			<td>{{type.id}}</td>
+			<td>{{type.name}}</td>
+			<td> 
+				<a href="{% url 'Agent:delete_type' type.id %}" class="btn btn-danger">Delete</a> 
+				<a href="{% url 'Agent:update_type' type.id %}" class="btn btn-warning">Update</a> 
+			</td>
+			</tr>
+		</tbody>
+		{% endfor %}
+		
+    </table>
+	</div>
+</div>
+
+
+{% endblock content %}

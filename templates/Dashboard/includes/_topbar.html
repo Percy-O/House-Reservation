@@ -1,0 +1,113 @@
+                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+
+                    <!-- Sidebar Toggle (Topbar) -->
+                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                        <i class="fa fa-bars"></i>
+                    </button>
+
+
+                    <!-- Topbar Navbar -->
+                    <ul class="navbar-nav ml-auto">
+                        {% if request.user.usertype == 'A' %}
+                        <!-- Nav Item - Messages -->
+                        <li class="nav-item dropdown no-arrow mx-1">
+                            <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fa fa-envelope "></i>
+                                <!-- Counter - Messages -->
+                                <span class="badge badge-danger badge-counter">{{messages.all.count}}</span>
+                            </a>
+                            <!-- Dropdown - Messages -->
+                            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                aria-labelledby="messagesDropdown">
+                                <h6 class="dropdown-header">
+                                    Message Center
+                                </h6>
+                                {% for message in messages %}
+                                <a class="dropdown-item d-flex align-items-center" href="{% url 'Chat:agent_message' message.house %}">
+                                    <div class="dropdown-list-image mr-3">
+                                        <img class="rounded-circle" src="{{message.user.avatar.url}}"
+                                            alt="...">
+                                        <div class="status-indicator bg-success"></div>
+                                    </div>
+                                    <div class="font-weight-bold">
+                                        <div class="text-truncate">{{message.message}}</div>
+                                        <div class="small text-gray-500">{{message.user.name}}</div>
+                                    </div>
+                                </a>
+                                {% endfor %}
+                                
+                                <a class="dropdown-item text-center small text-gray-500" href="#">Read More Messages</a>
+                            </div>
+                        </li>
+
+                        <div class="topbar-divider d-none d-sm-block"></div>
+                        {% endif %}
+
+                        {% if request.user.usertype == 'T' %}
+                        <!-- Nav Item - Messages -->
+                        <li class="nav-item dropdown no-arrow mx-1">
+                            <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fa fa-envelope "></i>
+                                <!-- Counter - Messages -->
+                                <span class="badge badge-danger badge-counter">{{messages.all.count}}</span>
+                            </a>
+                            <!-- Dropdown - Messages -->
+                            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                aria-labelledby="messagesDropdown">
+                                <h6 class="dropdown-header">
+                                    Message Center
+                                </h6>
+                                {% for message in messages %}
+                                {% if message.pk != None %}
+                                <a class="dropdown-item d-flex align-items-center" href="{% url 'Chat:tenant_message_view' message.pk %}">
+                                    <div class="dropdown-list-image mr-3">
+                                        <img class="rounded-circle" src="{{message.user.avatar.url}}"
+                                            alt="...">
+                                        <div class="status-indicator bg-success"></div>
+                                    </div>
+                                    <div class="font-weight-bold">
+                                        <div class="text-truncate">{{message.message}}</div>
+                                        <div class="small text-gray-500">{{message.user.name}}</div>
+                                    </div>
+                                </a>
+                                {% endif %}
+                                {% endfor %}
+                                
+                                <a class="dropdown-item text-center small text-gray-500" href="#">Read More Messages</a>
+                            </div>
+                        </li>
+
+                        <div class="topbar-divider d-none d-sm-block"></div>
+                        {% endif %}
+                        <li class="nav-item my-4 ">
+                            <h5 class=" align-self-end">Welcome <span class="text-primary text-uppercase">{{user.username}}</span></h5>
+                        </li>
+                        <div class="topbar-divider d-none d-sm-block"></div>
+
+                        <!-- Nav Item - User Information -->
+                        <li class="nav-item dropdown no-arrow">
+                            {% if user.is_authenticated %}
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small text-capitalize">{{user.username}}</span>
+                                <img class="img-profile rounded-circle"
+                                    src="{{user.avatar.url}}">
+                            </a>
+                            {% endif %}
+                            <!-- Dropdown - User Information -->
+                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                aria-labelledby="userDropdown">
+                                <!-- <div class="dropdown-divider"></div> -->
+                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Logout
+                                </a>
+                            </div>
+                        </li>
+
+                    </ul>
+
+                </nav>
+                <!-- End of Topbar -->

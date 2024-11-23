@@ -1,0 +1,114 @@
+{% extends 'Dashboard/base.html' %}
+
+
+{% load crispy_forms_tags %}
+{% block content %}
+
+<style type="text/css">
+	
+	.message{
+		width: 100%;
+		height: 300px !important;
+		background-color: #f2f2f2;
+		color: #000;
+		padding: 10px;
+		margin-top: 10px;
+		overflow: auto;
+	}
+	.chat{
+		border-left: 10px solid #46d !important;
+	}
+</style>
+
+<nav aria-label="Page breadcrumb">
+    <ol class="breadcrumb" style="background-color: #f1f1f1;">
+        <li class="breadcrumb-item"><a href="{% url 'Agent:dashboard' %}">Dashboard</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Chat</li>
+    </ol>
+</nav>
+<hr>
+
+
+<div class="row">
+	<div class="col-md-2">
+		
+	</div>
+	<div class="col-md-8">
+		<div></div>
+		<div class="row bg-primary">
+			<h5 class="py-2 text-white ml-4 font-weight-bolder">@{{request.user.username}} Welcome</h5>
+			<div class="col-md-12 bg-white">
+				<div class="message">
+
+					<p class="font-weight-bolder border text-center bg-white">House Management ChatBot</p>
+					{% for message in chats %}
+							<div class="row float-left my-2 border w-100 p-2 chat">
+								<div class="col-md-12">
+											<b>House:</b>{{ message.house }} 
+										</div>
+								<div class="col-md-12">
+									{% if message.user.usertype == 'T' %}
+										@{{message.user.username}} <span class="badge badge-info">Tenant</span> 
+									{% else %}
+										{% if message.user.usertype == 'A' %}
+											@{{message.user.username}} <span class="badge badge-info">Agent</span> 
+										{% endif %}
+									{% endif %}
+									<div class="row">
+										<div class="col-md-12">
+												{{ message.message }} 
+										</div>
+										<div class="col-md-12">
+											<span class="fa fa-clock-o"></span> {{ message.message_created|timesince }} ago
+											
+										</div>
+									</div>
+								</div>
+
+							</div>
+						
+					{% endfor %}
+
+				</div>
+				<form action="" method="POST" class="bg-white p-3">
+					
+					{% csrf_token %}
+					{% if house != 'agent' %}
+					<div class="form-group">
+						<select class="form-control" name="house">
+							<option class="House Name">House Name</option>
+							{% for house in houses %}
+							<option value="{{house.name}}">{{house.name}}</option>
+							{% endfor %}
+						</select>
+					</div>
+					{% endif %}
+					{% if house == 'agent' %}
+					<div class="form-group">
+						<input type="text" name="message" class="form-control" style="height:80px" placeholder="Reply message here...">
+					</div>
+					{% else %}
+						{% if house != 'agent' %}
+						<div class="form-group">
+							<input type="text" name="message" class="form-control" style="height:80px" placeholder="Write your message here...">
+						</div>
+						{% endif %}
+					{% endif %}
+
+				</form>
+			</div>
+			
+		</div>
+		
+	</div>
+	<div class="col-md-2">
+
+
+		
+		
+	</div>
+</div>
+
+
+
+{% endblock %}

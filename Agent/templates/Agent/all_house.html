@@ -1,0 +1,64 @@
+{% extends 'Dashboard/base.html' %}
+
+
+{% load crispy_forms_tags %}
+{% block content %}
+
+<nav aria-label="Page breadcrumb">
+    <ol class="breadcrumb" style="background-color: #f1f1f1;">
+        <li class="breadcrumb-item"><a href="{% url 'Agent:dashboard' %}">Dashboard</a></li>
+        <li class="breadcrumb-item active" aria-current="page">All House</li>
+    </ol>
+</nav>
+<hr>
+
+
+<div class="row">
+
+     <div class="col-md-12">
+        <table class="table table-hover bg-white"style="width: 100%;" >
+            <thead>
+                <tr class="bg-primary text-white" style="width: 100%;">
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>House Type</th>
+                    <th>Rooms</th>
+                    <th>House Rent</th>
+                    <th>Agent</th>
+                    <th colspan="4">House Images</th>
+                    <th>Booked</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody style="width:100%">
+                {% for house in houses %}
+                    <tr style="width:100%">
+                        <td>{{house.pk}}</td>
+                        <td>{{house.name}}</td>
+                        <td>{{house.house_type.name}}</td>
+                        <td>{{house.room}}</td>
+                        <td>{{house.house_rent}}</td>
+                        <td>{{house.agent}}</td>
+                        {% for image in house.houseimage.all %}
+                        <td ><img src="{{image.image.url}}" width="50" height="50"></td>
+                        {% endfor %}
+                        <td>
+                            {% if house.status == True %}
+                                <span class="fa fa-check">Booked</span>
+                            {% else %}
+                                Not Booked
+                            {% endif %}
+                        </td>
+                        <td>
+                            <a href="{% url 'Agent:delete_house' house.id %}" class="btn btn-danger btn-sm">Delete</a>          
+                            <a href="{% url 'Agent:update_house' house.id %}" class="btn btn-info btn-sm">Update</a>          
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    
+</div>
+{% endblock content %}

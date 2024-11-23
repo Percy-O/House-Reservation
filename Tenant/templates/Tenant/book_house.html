@@ -1,0 +1,60 @@
+{% extends 'Dashboard/base.html' %}
+
+
+{% load crispy_forms_tags %}
+{% block content %}
+
+<nav aria-label="Page breadcrumb">
+    <ol class="breadcrumb" style="background-color: #f1f1f1;">
+        <li class="breadcrumb-item"><a href="{% url 'Tenant:dashboard' %}">Dashboard</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'Tenant:all_house' %}"> All House</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Book House</li>
+    </ol>
+</nav>
+<hr>
+
+
+
+<div class="row">
+	<div class="col-md-2"></div>
+	<div class="col-md-8">
+		<div class="row bg-primary">
+			<h5 class="py-2 text-white mr-auto ml-auto">Choosen House Information</h5>
+			<div class="col-md-12 bg-white py-3">
+					{% include 'includes/messages.html' %}
+				<form action="" method="POST">
+					{% csrf_token %}
+					<div class="form-group">
+						<label for="name">House Name</label>
+						<input type="text" name="name" value="{{house.name}}" class="form-control" disabled>
+						<small class="help"> House name booked</small>
+					</div>
+					<div class="form-group">
+						<label for="type">House Type</label>
+						<input type="text" name="type" value="{{house.house_type.name}}" class="form-control" disabled>
+						<small class="help"> House type </small>
+					</div>
+					<div class="form-group">
+						<label for="room">House Room</label>
+						<input type="text" name="room" value="{{house.room}}" class="form-control" disabled>
+						<small class="help"> House Room booked</small>
+					</div>
+					<div class="form-group">
+						<label for="name">House Rent</label>
+						<input type="text" name="name" value="{{house.house_rent}}" class="form-control" disabled>
+						<small class="help"> House name booked</small>
+					</div>
+					<div class="form-group">
+						<label for="name">House Details</label>
+						<textarea class="form-control" disabled>{{house.house_details}}</textarea>
+						<small class="help"> House Details Booed</small>
+					</div>
+
+					<button class="btn btn-primary btn-bg">Book Now</button>
+				</form>
+			</div>
+		</div>
+	</div>
+	<div class="col-md-2"></div>
+</div>
+{% endblock content %}

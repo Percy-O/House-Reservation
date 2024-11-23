@@ -1,0 +1,96 @@
+<style type="text/css">
+	
+	.footer{
+		background-color: rgba(0, 0, 0, 0.8);
+		color: white;
+		min-height: 300px !important;
+		width: 100% !important;
+		height: 350px;
+
+	}
+	.footer-credit-text{
+		border-top: 1px solid white ;
+		font-size: 15px;
+		text-align: center;
+	}
+</style>
+
+<footer>
+	<div class="footer"> 
+		<div class="footer-content">
+			<div class="footer-content-text">
+				<div class="container">
+					<div class="row" style=" min-height: 200px;">
+						<div class="col-md-4 p-3" style="border-right: 1px solid white;">
+							<h2 class="mt-2">About House Management</h2>
+							<hr style="border:1px dashed white">
+							<p> House management is an application synthentic in which it make it easier to reserve house from different location and it give the surport of chatting with the agent and offers online payment.</p>
+
+							<a href="#" class="btn btn-light"> Know More</a>
+						</div>
+
+						<div class="col-md-4 p-3" style="border-right: 1px solid white;">
+							<h2 class="mt-2">Subscribe To Newsletter</h2>
+							<hr style="border:1px dashed white">
+
+							<form class="" action="" method="POST">
+								{% csrf_token %}
+
+								<div class="form-group">
+									<label for="email"> Your Email Address</label>
+									<input type="email" name="email" class="form-control">
+									<small>Subscribe To Our Newsletter</small>
+								</div>
+								<button class="btn btn-primary" style=" background-color: #46d !important;">Subscribe</button>
+							</form>
+						</div>
+
+						<div class="col-md-4 p-3">
+							<div class="row">
+								<div class="col-md-6">
+									<h2 class="mt-2">Support ticket</h2>
+									<hr style="border:1px dashed white">
+
+									<a href="#" style=" color: #46d;">
+										<span class="fa fa-users text-white fa-2x	"></span> Contact Support Team
+									</a>
+								</div>
+
+								<div class="col-md-6 ">
+									<h2 class="mt-2">Follow us</h2>
+									<hr style="border:1px dashed white">
+
+									<a href="#" style=" color: #46d;">
+										<span class="fa fa-facebook text-white fa-2x" ></span> Facebook
+									</a>
+									<hr>
+									<a href="#" style=" color: #46d;">
+										<span class="fa fa-twitter text-white fa-2x	"></span> Twitter
+									</a>
+									<hr>
+									<a href="#" style=" color: #46d;">
+										<span class="fa fa-instagram text-white fa-2x"></span> Instagram
+									</a>
+									<hr>
+									<a href="#" style=" color: #46d;">
+										<span class="fa fa-whatsapp text-white fa-2x"></span> Whatsapp
+									</a>
+								</div>
+							</div>
+							
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="footer-credit mt-3">
+
+			<div class="container-fluid">
+			<div class="col-md-12  footer-credit-text">
+				<h4 class="align-self-center justify-content-center mt-3"> &copy; Copyright - House Management - All right reserved |<span style=" color: #46d;">Designed by Ptechnology</span>|	</h4>
+			</div>
+			</div>
+		</div>
+		</div>
+	</div>
+</footer>

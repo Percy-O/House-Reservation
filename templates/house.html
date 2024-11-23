@@ -1,0 +1,213 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block header_content%}
+	{% include '_header.html' %}
+{% endblock %}
+
+
+{% block content %}
+<div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
+  <ol class="carousel-indicators">
+    {% for house in house.houseimage.all %}
+    <li data-target="#carouselExampleCaptions" data-slide-to="{{ forloop.count }}" class="{% if forloop.first %} active{% endif %}"></li>
+    {% endfor %}
+
+  </ol>
+  <div class="carousel-inner">
+    {% for house in house.houseimage.all %}
+    <div class="carousel-item {% if forloop.first %} active{% endif %}">
+      <img src="{{house.image.url}}" class="d-block w-100" height="500" alt="{{house.name}}">
+      <div class="carousel-caption d-none d-md-block text-white py-4 rounded" style=" background-color: #46d;">
+        <h5 >{{house_name}}</h5>
+        <p>{{house_details}}</p>
+      </div>
+    </div>
+    {% endfor %}
+    
+  </div>
+  <button class="carousel-control-prev bg-transparent p-4" style="border: none !important;color:black !important;" type="button" data-target="#carouselExampleCaptions" data-slide="prev">
+    <span class="carousel-control-prev-icon text-dark " style="color:black !important;" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </button>
+  <button class="carousel-control-next bg-transparent p-4" type="button" style="border: none !important;color:black !important;"  data-target="#carouselExampleCaptions" data-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </button>
+</div>
+
+
+
+<div class="container mt-3 mb-5">
+	<h2 class=""><u>House Information</u></h2>
+	<div class="row">
+		<div class="col-md-8">
+			<div class=" row bg-white p-2 border-radius">
+			<!-- First Card Information -->
+				<div class="col-md-4">
+					<div class="card">
+						<div class="card-header text-white" style=" background-color: #46d;">
+							<div class="card-header-text">
+								House Name
+							</div>
+						</div>
+						<div class="card-body">
+							<span class="fa fa-check"> </span> {{house.name}}
+						</div>
+					</div>
+				</div>
+
+				<div class="col-md-4">
+					<div class="card">
+						<div class="card-header text-white" style=" background-color: #46d;">
+							<div class="card-header-text">
+								House Type
+							</div>
+						</div>
+						<div class="card-body">
+							<span class="fa fa-check"> </span> {{house.house_type.name}}
+						</div>
+					</div>
+				</div>
+
+				<div class="col-md-4">
+					<div class="card">
+						<div class="card-header text-white" style=" background-color: #46d;">
+							<div class="card-header-text">
+								House Room
+							</div>
+						</div>
+						<div class="card-body">
+							<span class="fa fa-check"> </span> {{house.room}} Rooms
+						</div>
+					</div>
+				</div>
+				<!-- End Card Information -->
+			</div>
+
+			<div class=" row bg-white p-2 border-radius">
+			<!-- Second Card Information -->
+				<div class="col-md-4">
+					<div class="card">
+						<div class="card-header text-white" style=" background-color: #46d;">
+							<div class="card-header-text">
+								House Agent
+							</div>
+						</div>
+						<div class="card-body">
+							<span class="fa fa-check"> </span> {{house.agent.name}}
+						</div>
+					</div>
+				</div>
+
+				<div class="col-md-4">
+					<div class="card">
+						<div class="card-header  text-white" style=" background-color: #46d;">
+							<div class="card-header-text">
+								House Address
+							</div>
+						</div>
+						<div class="card-body">
+							<span class="fa fa-check"> </span> {{house.house_type.name}}
+						</div>
+					</div>
+				</div>
+
+				<div class="col-md-4">
+					<div class="card">
+						<div class="card-header text-white" style=" background-color: #46d;">
+							<div class="card-header-text">
+								House Rent
+							</div>
+						</div>
+						<div class="card-body">
+							<span class="fa fa-check"> </span> N{{house.house_rent}} 
+						</div>
+					</div>
+				</div>
+				<!-- End Card Information -->
+			</div>
+			<!-- House Description -->
+			<div class="row mt-2 bg-white">
+				<div class="col-md-12 p-3">
+					<p>{{house.house_details}}</p>
+				</div>
+			</div>
+
+			<div class="row mt-2 bg-white p-3">
+				<div class="col-md-6" style="border-right:1px solid #000">
+					<h5>Date Posted: </h5><span class="badge" style=" background-color: #46d;">{{house.date_posted}}</span>
+				</div>
+				<div class="col-md-6" >
+					<h5>
+						Current Status:
+					 </h5>
+						{% if house.status == False %} 
+							 <span class="badge" style=" background-color: #46d;">On Sale</span>
+						{% else %} 
+							<span class="badge" style=" background-color: #46d;">House Reserved</span>
+						{% endif %}
+					
+				</div>
+			</div>
+
+		</div>
+
+		<div class="col-md-4   ">
+			<div class="row mr-2 bg-white h-100 ml-4 ">
+				<div class="col-md-12">
+					<div class="row mt-3 border p-2 d-flex align-items-center text-white" style=" background: #46d;">
+						<div class="col-md-4 ">
+							<img src="{{house.agent.avatar.url}}" class="img-circle rounded" width="50" >
+						</div>
+						<div class="col-md-8">
+							<h5>{{house.agent.name}}</h5>
+							Agent
+						</div>
+						
+					</div>
+					
+					<div class="row mt-3">
+						<div class="col-md-12">
+							<div>
+								<h5>Username:</h5>
+								<a href="#" class="" style="font-size:15px;color:#46d">
+									<span class="fa fa-user"></span> {{house.agent.username}}
+								</a>
+
+							</div>
+							<div>
+								<h5>Phone Number:</h5>
+								<a href="tel:09070553898" class="" style="font-size:15px;color:#46d">
+									<span class="fa fa-phone"></span> {{house.agent.phone_num}}
+								</a>
+
+							</div>
+
+							<div>
+								<h5>Email Address:</h5>
+								<a href="#" class="" style="font-size:15px;color:#46d">
+									<span class="fa fa-envelope"></span> {{house.agent.email}}
+								</a>
+								
+							</div>
+						</div>
+
+					</div>
+					<hr>
+						<div class="row">
+							<div class="col-md-12">
+								<a href="{% url 'Chat:tenant_message' %}" style=" background-color: #46d !important;" class="btn btn-primary btn-block" >Chat with the agent</a>
+							</div>
+						</div>
+				</div>
+				
+			</div>
+		</div>
+	</div>
+</div>
+	
+{% include '_footer.html' %}
+{% endblock content %}

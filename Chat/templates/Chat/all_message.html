@@ -1,0 +1,45 @@
+{% extends 'Dashboard/base.html' %}
+
+
+{% load crispy_forms_tags %}
+{% block content %}
+
+<div class="row">
+	<div class="col-md-2"></div>
+	<div class="col-md-8">
+		
+		<div class="row bg-primary">
+			{% if request.user.usertype == 'A' %}
+				<h4 class="py-2 mr-auto ml-auto text-white">All Agent House Chat</h4>
+			{% else %}
+			{% if request.user.usertype == 'T' %}
+				<h4 class="py-2 mr-auto ml-auto text-white">All Tenant House Chat</h4>
+			{% endif %}
+			{% endif %}
+			<div class="col-md-12 bg-white ">
+				{% for house in all_house_chat %}
+				<div class="row p-3 bg-secondary m-3 text-white d-flex align-items-center">
+					<div class="col-md-8">
+						{{ house.name}}
+
+					</div>
+					<div class="col-md-2">
+						{% if request.user.usertype == 'A' %}
+							<a href="{% url 'Chat:agent_message' house.name %}" class="btn btn-primary">View Chat</a>
+						{% else %}
+							{% if request.user.usertype == 'T' %}
+								<a href="{% url 'Chat:tenant_message' %}" class="btn btn-primary">View Chat</a>
+							{% endif %}
+						{% endif %}
+
+					</div>
+				</div>
+				{% endfor%}
+
+				
+			</div>
+		</div>
+	</div>
+	<div class="col-md-2"></div>
+</div>
+{% endblock content %}

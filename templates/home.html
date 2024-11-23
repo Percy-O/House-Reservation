@@ -1,0 +1,221 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block header_content%}
+	{% include '_header.html' %}
+{% endblock %}
+
+
+{% block content %}
+
+<style type="text/css">
+	
+	input[type="search"]{
+		border: none;
+		width: 50%;
+		font-size: 12px;
+		height: 50px;
+		background-color: white;
+		padding-left: 5px;
+		/*outline: none !important;*/
+
+
+
+	}
+	.form{
+		background-color: #000;
+	}
+	input[type="search"]:focus{
+		outline: none !important;
+		color: rgba(0, 0, 0,0.5);
+		padding: 15px;
+		position: relative;
+	}
+	.input-group-append{
+		background-color: #3d64d3;
+		border-radius: 4px;
+	}
+	.input-group-text{
+		width: 50px;
+	}
+	.search{
+		background-color: #3d64d3;
+		border-radius: 4px !important;
+		border: none;
+		color: white;
+	}
+	.search:hover{
+		background-color: #3d64d3;
+		border: none;
+	}
+
+	.header{
+
+		/*background-image: url('{% static "images/background.jpg" %}');*/
+		background : url('{% static "images/background.jpg" %}');
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center;
+        position: relative;
+        height: 400px;
+        padding-top: 100px;
+
+	}
+	.header::before{
+		content: '';
+		position: absolute;
+		background: rgba(0, 0, 0,0.8);
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+
+		}
+
+	
+</style>
+
+<div class="header">
+	<h1 class="h1 text-white text-center " style="padding-top: 70px;font-family: HeadingNowTrial;position: relative;">Welcome To House Management</h1>
+		<form action="{% url 'home' %}" method="GET">
+		
+		<div class="input-group bg-transparent search-form mr-auto ml-auto justify-content-center" style="border-radius: 4px;">
+            <input type="search" name="q" id="" class="" placeholder="Search For Agent, House Name...">
+            <div class="input-group-append" style="padding-top: 10px;">
+                <span class="input-group-text" id="my-addon"><button
+                        class="btn btn-light search" ><i class="fa fa-search-plus"
+                            aria-hidden="true"></i> Search Now</button></span>
+            </div>
+        </div>
+    </form>
+	 
+</div>
+<div class="container py-2"> 
+	{% include 'includes/messages.html' %}
+	<div class="row">
+
+		<h3 class="mr-auto ml-auto text-sm mt-3 border p-3 text-white font-weight-bolder" style="background-color: #46d;"> All House Available</h3>
+
+	</div>
+
+	<div class="row">
+
+		{% for house in houses %}
+		<div class="col-md-4 mb-4">
+	        <div class="card">
+	        	<section id="center" class="clearfix center_detail">
+ 				<div class="center clearfix">
+	            <div id="carousel" class="carousel slide carousel-fade">
+		            <!-- Carousel items -->
+
+		            <div class="carousel-inner">
+		              {% for house in house.houseimage.all %}
+				              <div data-slide-no="{{ forloop.count }}"  class="item carousel-item {% if forloop.first %}active{% endif %}" data-interval="10">
+				                <img src="{{house.image.url}}" alt="House Image" width="500" height="200">
+				         	</div>
+		              {% endfor %}
+
+		            </div>
+	          </div>
+	      	  </div>
+	  		  </section>
+	            <div class="card-body">
+
+	            	<div class="row">
+	            		<div class="col-md-8">
+	            			<h4 class="card-title"><span class="fa fa-building-o kb_icons" aria-hidden="true"></span> <b>{{house.name}}</b></h4>
+	            		</div>
+
+	            		<div class="col-md-4">
+	            			{% if house.status == True %}
+	            			<span class="badge" style=" background: #46d;"> <span class="fa fa-check-circle kb_icons " aria-hidden="true"></span> Reserved</span>
+	        	 				
+	            			{% endif %}
+	            		</div>
+
+	            	</div>
+	                
+	                 
+	                <h6 class="card-subtitle">
+	                	<div class="row" style=" color: #46d;">
+	                		<div class="col-md-6">
+	                			<span class="fa fa-user kb_icons" aria-hidden="true"></span> {{house.agent.name}}
+	                		</div>
+	                		<div class="col-md-6">
+	                			<span class="fa fa-bars kb_icons" aria-hidden="true"></span>
+	                			{{house.house_type.name}}
+	                		</div>
+	                	</div>
+	                	<div class="row  mt-1" style=" color: #46d;">
+	                		<div class="col-md-6">
+	                			<span class="fa fa-hotel kb_icons" aria-hidden="true"></span> {{house.room}} rooms
+	                		</div>
+	                		<div class="col-md-6">
+	                			<span class="fa fa-money kb_icons" aria-hidden="true"></span>
+	                			{{house.house_rent}} / year
+	                		</div>
+	                	</div>
+	            	</h6>
+	                <p>{{house.house_details}}</p>
+	                <a href="{% url 'get_house' house.name %}" class="btn btn-primary" style=" background-color: #46d !important;">View House</a>
+	            </div>
+	        </div>
+		</div>
+		{% endfor %}
+	</div>
+
+
+	<center>
+		<!-- pagination -->
+	<div class="row mt-5 ">
+		<div class="col-md-12 ">
+			{% if houses.has_other_pages %}
+			<nav aria-label="PageLink pt-3">
+		                <ul class="pagination float-right" >
+		                	{% if houses.has_previous %}
+			                    <li class="page-item" aria-label="previous">
+			                        <a class="page-link" href="?page={{houses.previous_page_number}}">
+			                             <i class="fa fa-arrow-left" aria-hidden="true"></i>
+			                        </a>
+			                    </li>
+			                    {% else %}
+			                    <li class="disabled" aria-label="previous">
+			                        <a class="page-link disabled">
+			                            <i class="fa fa-arrow-left" aria-hidden="true"></i>
+			                        </a>
+			                    </li>
+		                    {% endif %}
+		                    {% for number in houses.paginator.page_range %}
+		                    	{% if houses.number == number %}
+		                    		<li class="page-item active"><a class="page-link" href="?page={{number}}">Page {{number}}</a></li>
+		                    	{% endif %}
+		                    {% endfor %}
+		                    {% if houses.has_next %}
+		                    <li class="page-item" aria-label="Next">
+		                        <a class="page-link" href="?page={{houses.next_page_number}}">
+		                            <i class="fa fa-arrow-right" aria-hidden="true"></i>
+		                        </a>
+		                    </li>
+		                    {% else %}
+		                    <li class="disabled " aria-label="Next">
+		                        <a class="page-link disabled">
+		                            <i class="fa fa-arrow-right" aria-hidden="true"></i>
+		                        </a>
+		                    </li>
+		                    {% endif %}
+		                </ul>
+		            </nav>
+		        {% endif %}
+
+
+		</div>
+		
+	</div>
+</div>
+</center>
+
+
+{% include '_footer.html' %}
+{% endblock %}

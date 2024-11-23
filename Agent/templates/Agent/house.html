@@ -1,0 +1,70 @@
+{% extends 'Dashboard/base.html' %}
+
+
+{% load crispy_forms_tags %}
+{% block content %}
+
+<nav aria-label="Page breadcrumb">
+    <ol class="breadcrumb" style="background-color: #f1f1f1;">
+        <li class="breadcrumb-item"><a href="{% url 'Agent:dashboard' %}">Dashboard</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Add House</li>
+    </ol>
+</nav>
+<hr>
+
+
+<div class="row">
+
+	<div class="col-md-2">
+		
+	</div>
+	<div class="col-md-7 ">
+		<div class="row bg-primary">
+			<h4 class="py-2 text-white mr-auto ml-auto">Add House</h4>
+			<div class="col-md-12 bg-white py-1">
+			{% include 'includes/messages.html' %}
+			<form action="" method="POST" class="py-3" enctype="multipart/form-data">
+				{% csrf_token %}
+
+				<div class="form-group">
+					{{form.name|as_crispy_field}}					
+					<small class="helpId">Enter the name of the house</small>
+				</div>	
+				<div class="form-group">
+					{{form.house_type|as_crispy_field}}					
+					<small class="helpId">Enter the name of the house</small>
+				</div>	
+				<div class="form-group">
+					{{form.room|as_crispy_field}}					
+					<small class="helpId">Enter the name of the house</small>
+				</div>	
+				<div class="form-group">
+					{{form.house_rent|as_crispy_field}}					
+					<small class="helpId">Enter the name of the house</small>
+				</div>	
+				<div class="form-group">
+					{{form.house_details|as_crispy_field}}					
+					<small class="helpId">All Information about the house</small>
+				</div>	
+				<div class="form-group">
+						<input type="file" name="image" multiple class="form-control-file" >
+						<small class="helpId">Choose all house image <br> <span class="text-primary">Note: Maximum Image is 3</span></small>
+				</div>	
+
+				{% if verify == 'update'%}
+				<button class="btn btn-primary">Update House </button>						
+				{% else %}
+				<button class="btn btn-primary">Save House </button>
+				{% endif %}						
+			</form>
+			</div>
+		</div>
+	</div>
+
+	<div class="col-md-2">
+		
+	</div>
+	
+</div>
+
+{% endblock content %}

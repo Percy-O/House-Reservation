@@ -1,0 +1,100 @@
+{% extends 'Dashboard/base.html' %}
+
+
+{% block content %}
+
+<h4> <span class="text-primary text-uppercase font-weight-bold">Tenant {{request.user.username}}</span> You are welcome to House Management</h4>
+    <hr>
+
+<div class="row">
+
+
+
+    <!-- All Students -->
+    <!-- <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-primary shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                            All Building</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{buildings.all.count}}</div>
+                    </div>
+                    <div class="col-auto">
+                       <i class="fa fa-building fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> -->
+
+    <!-- All Courses -->
+    <!-- <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-success shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                            All Courses</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{courses.all.count}}</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fa fa-book fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> -->
+
+    <!-- All Results Processes -->
+    <!-- <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-info shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-info text-uppercase mb-1">All Results Processed
+                        </div>
+                        <div class="row no-gutters align-items-center">
+                            <div class="col-auto">
+                                <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">{{results.all.count}}</div>
+                            </div>
+                            <div class="col">
+                                <div class="progress progress-sm mr-2">
+                                    <div class="progress-bar bg-info" role="progressbar"
+                                        style="width: 100%" aria-valuenow="{{results.all.count}}" aria-valuemin="0"
+                                        aria-valuemax="1000"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fa fa-clipboard fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> -->
+
+    <!-- All Levels -->
+   <!--  <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-warning shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                            All Levels</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{levels.all.count}}</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fa fa-commenting-o fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>-->
+</div>
+
+
+
+
+{% endblock content %}
